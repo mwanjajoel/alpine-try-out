@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.2/dist/alpine-ie11.js"></script>
+    <title>Alpine Try Out</title>
+</head>
+<body>
+    <div x-data="{items: [], adding:false}">
+        <template x-for="item in items" :key="item">
+            <div>
+                <span x-text="item"></span>
+                <button @click="items = items.filter( i => i !==item)">Delete</button>
+            </div>
+        </template>
+
+        <button @click="adding = true">ADD</button>
+        <div x-show.transition="adding" @click.away="adding = false">
+            <label for="name">Name:</label>
+            <input id="name" x-model="name" @keyup="$refs.ok.disabled = name.length === 0" />
+
+            <button @click="adding = false"> CANCEL </button>
+            <button @click="adding false, items.push(name); name = ''" x-ref="ok">OK</button>
+        </div>
+
+    </div>
+</body>
+</html>
